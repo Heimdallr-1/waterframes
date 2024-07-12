@@ -17,6 +17,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -48,7 +49,7 @@ public class DisplayTile extends BlockEntity {
     }
 
     public static void setLagTickTime(long ltt) {
-        LOGGER.debug("Server seems overloading, jumping {}ms or {} ticks", ltt, ltt / 50L);
+        LOGGER.warn("Server seems overloading, jumping {}ms or {} ticks", ltt, ltt / 50L);
         lagTickTime = ltt;
     }
 
@@ -99,15 +100,15 @@ public class DisplayTile extends BlockEntity {
     }
 
     @Override
-    public void saveAdditional(CompoundTag nbt) {
+    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
         this.data.save(nbt, this);
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(CompoundTag nbt) {
+    protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
         this.data.load(nbt, this);
-        super.load(nbt);
+        super.loadAdditional(nbt, registries);
         this.setDirty();
     }
 
@@ -276,8 +277,8 @@ public class DisplayTile extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithFullMetadata();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return this.saveWithFullMetadata(registries);
     }
 
     @Override

@@ -50,6 +50,7 @@ public class DisplayControl {
     }
 
     public static void resume() {
+        if (!paused) return;
         paused = false;
         for (int i = 0; i < position; i++) {
             if (displays[i] != null) displays[i].setPauseMode(false);
@@ -107,7 +108,7 @@ public class DisplayControl {
     }
 
     public static void onUnloadingLevel(Level level) {
-        if ( level.isClientSide()) DisplayControl.release();
+        if (level.isClientSide()) DisplayControl.release();
     }
 
     // @SubscribeEvent

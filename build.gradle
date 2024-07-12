@@ -14,7 +14,7 @@ base {
 }
 
 java.toolchain {
-    languageVersion = JavaLanguageVersion.of(17)
+    languageVersion = JavaLanguageVersion.of(21)
 }
 
 println "Gradle Java: ${JavaVersion.current()}"
@@ -60,7 +60,7 @@ dependencies {
 
     //DEPENDENCIES
     modImplementation "com.github.WaterMediaTeam.watermedia:build:$watermediaversion"
-    modImplementation "curse.maven:video-player-645407:$videoplayerversion"
+//    modImplementation "curse.maven:video-player-645407:$videoplayerversion"
     modImplementation "curse.maven:creativecore-257814:$creativecoreversion"
 }
 
